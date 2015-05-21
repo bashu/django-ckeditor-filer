@@ -23,13 +23,13 @@
 	        height = 0;
 	    if (thumb_sel_val != 0) {
 	        thumb_opt_id = thumb_sel_val + '/';
-	        server_url = base_ckeditor + '/url_image/' + $('#id_image').val() + '/' + thumb_opt_id;
+	        server_url = base_ckeditor + '/url_image/' + $('#id_filer_image').val() + '/' + thumb_opt_id;
 	    } else {
 	        width = dialog.getContentElement("tab-basic", "width").getValue();
 	        if (width == "") width = ''; else width += '/';
 	        height = dialog.getContentElement("tab-basic", "height").getValue();
 	        if (height == "") height = ''; else height += '/';
-	        server_url = base_ckeditor + '/url_image/' + $('#id_image').val() + '/' + width + height;
+	        server_url = base_ckeditor + '/url_image/' + $('#id_filer_image').val() + '/' + width + height;
 	    }
 	    $.get(server_url, function (data) {
 	        url.setValue(data.url);
@@ -46,7 +46,7 @@
 	    onShow: function () {
 	        dialog = CKEDITOR.dialog.getCurrent();
 	        var document = this.getElement().getDocument(),
-		    id_image = document.getById('id_image'),
+		    id_image = document.getById('id_filer_image'),
 		    oldVal = id_image.getValue(),
 		    id_image_thumbnail_img = '',
 		    id_image_description_txt = '';
@@ -57,18 +57,18 @@
 		        getImageUrl();
 		    }
 	        }, 1000);
-	        if (id_image)
-		    id_image.hide();
-	        var id_image_clear = document.getById('id_image_clear');
+	        // if (id_image)
+		//     id_image.hide();
+	        var id_image_clear = document.getById('id_filer_image_clear');
 
 	        id_image_clear.on('click', function () {
 		    id_image.setValue("");
 		    id_image.removeAttribute("value");
-		    id_image_thumbnail_img = document.getById('id_image_thumbnail_img');
+		    id_image_thumbnail_img = document.getById('id_filer_image_thumbnail_img');
 		    id_image_thumbnail_img.setAttribute("src", nofile_icon);
-		    id_image_description_txt = document.getById('id_image_description_txt');
+		    id_image_description_txt = document.getById('id_filer_image_description_txt');
 		    id_image_description_txt.setHtml("");
-		    id_image_clear = document.getById('id_image_clear');
+		    id_image_clear = document.getById('id_filer_image_clear');
 		    id_image_clear.hide();
 	        });
 
@@ -113,7 +113,7 @@
 	        dialog = CKEDITOR.dialog.getCurrent();
 	        var document = this.getElement().getDocument();
 	        // document = CKEDITOR.dom.document
-	        var id_image = document.getById('id_image');
+	        var id_image = document.getById('id_filer_image');
 	        img.setAttribute("filer_id", id_image.getValue());
 
 	        // Invoke the commit methods of all dialog elements, so the <img> element gets modified.
@@ -132,15 +132,16 @@
 		        {
 			    type: 'html',
 			    html: '<div class="field-box field-image" style="display:table-cell; vertical-align: middle"><div>' +
-			        '<label for="id_image">' + commonLang.image + ':</label>' +
-			        '<img alt="' + lang.noFileAlt + '" class="quiet" src="' + nofile_icon + '" id="id_image_thumbnail_img">' +
-			        '&nbsp;<span id="id_image_description_txt"></span>' +
-			        '<a onclick="return showRelatedObjectLookupPopup(this);" title="' + lang.browse +'" id="lookup_id_image" class="related-lookup" href="' + base_admin + 'filer/folder/last/?t=file_ptr">' +
+			        '<label for="id_filer_image">' + commonLang.image + ':</label>' +
+			        '<img alt="' + lang.noFileAlt + '" class="quiet" src="' + nofile_icon + '" id="id_filer_image_thumbnail_img">' +
+			        '&nbsp;<span id="id_filer_image_description_txt"></span>' +
+			        '<a onclick="return showRelatedObjectLookupPopup(this);" title="' + lang.browse +'" id="lookup_id_filer_image" class="related-lookup" href="' + base_admin + 'filer/folder/last/?t=file_ptr">' +
 			        '<img width="16" height="16" alt="' + lang.browse +'" src="' + base_static + '/admin/img/icon_searchbox.png">' +
 			        '</a>' +
-			        '<img width="10" height="10" style="display: none;" title="' + lang.clear + '" alt="' + lang.clear + '" src="' + base_static + '/admin/img/icon_deletelink.gif" id="id_image_clear">' +
-			        '<br><input type="text" id="id_image" name="image" class="vForeignKeyRawIdAdminField">' +
+			        '<img width="10" height="10" style="display: none;" title="' + lang.clear + '" alt="' + lang.clear + '" src="' + base_static + '/admin/img/icon_deletelink.gif" id="id_filer_image_clear">' +
+			        '<br><input type="text" id="id_filer_image" name="image" class="vForeignKeyRawIdAdminField">' +
 			        '</div></div>'
+			    },
 		        },
 		        {
 			    type: 'text',
